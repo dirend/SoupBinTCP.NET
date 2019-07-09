@@ -1,23 +1,24 @@
-using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoupBinTCP.NET.Messages;
-using Xunit;
 
 namespace Tests
 {
+    [TestClass]
     public class UnitTest1
     {
-        [Fact]
-        public void Test1()
+        [TestMethod]
+        public void TestMethod1()
         {
             var message = new Debug("Hi");
-            Assert.Equal(3, message.Length);
+            message.TotalBytes.ToString();
+            Assert.AreEqual(3, message.Length);
         }
-        
-        [Fact]
-        public void Test2()
+
+        [TestMethod]
+        public void TestMethod2()
         {
             var message = new Debug("HiHiHiHiHiHiHiHiHiHiHiHiHiHi");
-            Assert.Equal(29, message.Length);
+            Assert.AreEqual(29, message.Length);
         }
     }
 }

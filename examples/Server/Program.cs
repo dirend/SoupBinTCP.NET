@@ -5,7 +5,7 @@ namespace Server
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Starting server");
             var server = new SoupBinTCP.NET.Server(new ServerListener());
@@ -15,7 +15,7 @@ namespace Server
             {
                 command = Console.ReadLine();
             }
-            await server.Shutdown();
+            server.Shutdown();
         }
     }
 }

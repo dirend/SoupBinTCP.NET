@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SoupBinTCP.NET;
+using SoupBinTCP.NET.Messages;
+using System;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using SoupBinTCP.NET;
-using SoupBinTCP.NET.Messages;
 
 namespace Client
 {
@@ -24,23 +24,24 @@ namespace Client
                 Message message;
                 switch (command)
                 {
-                        case "d":
-                            message = new Debug("debug message!!");
-                            break;
-                        case "s":
-                            message = new UnsequencedData(Encoding.ASCII.GetBytes("unsequenced"));
-                            break;
-                        case "l":
-                            message = new LoginRequest("user", "password");
-                            break;
-                        default:
-                            message = new Debug("default");
-                            break;
+                    case "d":
+                        message = new Debug("debug message!!");
+                        break;
+                    case "s":
+                        message = new UnsequencedData(Encoding.ASCII.GetBytes("unsequenced"));
+                        break;
+                    case "l":
+                        message = new LoginRequest("user", "password");
+                        break;
+                    default:
+                        message = new Debug("default");
+                        break;
                 }
-                await client.Send(message);
+                // FIX
+                //await client.Send(message);
                 command = Console.ReadLine();
             }
-            await client.Shutdown();
+            client.Shutdown();
         }
     }
 }
