@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoupBinTCP.NET.Messages.OUCH
+namespace SoupBinTCP.NET.Messages
 {
-    class OUCHEnterOrder : OUCHMessage
+    public abstract class OUCHMessage
     {
     }
 }

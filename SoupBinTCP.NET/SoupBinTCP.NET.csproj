@@ -228,6 +228,7 @@
     <Compile Include="Messages\LoginRequest.cs" />
     <Compile Include="Messages\LogoutRequest.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\OUCHMessage.cs" />
     <Compile Include="Messages\OUCH\OUCHEnterOrder.cs" />
     <Compile Include="Messages\SequencedData.cs" />
     <Compile Include="Messages\ServerHeartbeat.cs" />

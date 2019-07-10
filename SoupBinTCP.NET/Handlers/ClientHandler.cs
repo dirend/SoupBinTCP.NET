@@ -28,6 +28,10 @@ namespace SoupBinTCP.NET.Handlers
                     _listener.OnLoginReject(msg.RejectReasonCode);
                     break;
                 case SequencedData msg:
+
+                    // TODO: Create OUCH object instance
+                    // TODO: Invoke OnMessage with OUCHMessage instance
+
                     _listener.OnMessage(msg.Message);
                     break;
             }

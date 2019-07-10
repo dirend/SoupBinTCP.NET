@@ -1,6 +1,7 @@
-﻿using System;
+﻿using SoupBinTCP.NET;
+using SoupBinTCP.NET.Messages;
+using System;
 using System.Threading.Tasks;
-using SoupBinTCP.NET;
 
 namespace Client
 {
@@ -15,6 +16,15 @@ namespace Client
         public async Task OnMessage(byte[] message)
         {
             Console.WriteLine($"OnMessage {message.Length}");
+            await Task.FromResult(false);
+        }
+
+        public async Task OnMessage(OUCHMessage message)
+        {
+            // TODO Log
+
+            // TODO switch
+
             await Task.FromResult(false);
         }
 
@@ -47,5 +57,7 @@ namespace Client
             Console.WriteLine($"OnLoginReject {rejectReasonCode}");
             return Task.FromResult(false);
         }
+
+
     }
 }
