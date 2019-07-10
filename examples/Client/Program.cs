@@ -3,45 +3,62 @@ using SoupBinTCP.NET.Messages;
 using System;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Starting client");
-            var client = new SoupBinTCP.NET.Client(IPAddress.Parse("127.0.0.1"), 5500, new LoginDetails()
+
+            RunClientAsync().Wait();
+        }
+
+        private static async Task RunClientAsync()
+        {
+            try
             {
-                Password = "password",
-                Username = "user"
-            }, new ClientListener());
-            client.Start();
-            var command = Console.ReadLine();
-            while (command != "x")
-            {
-                Message message;
-                switch (command)
+                var client = new SoupBinTCP.NET.Client(IPAddress.Parse("127.0.0.1"), 5500, new LoginDetails()
                 {
-                    case "d":
-                        message = new Debug("debug message!!");
-                        break;
-                    case "s":
-                        message = new UnsequencedData(Encoding.ASCII.GetBytes("unsequenced"));
-                        break;
-                    case "l":
-                        message = new LoginRequest("user", "password");
-                        break;
-                    default:
-                        message = new Debug("default");
-                        break;
+                    Password = "password",
+                    Username = "user"
+                }, new ClientListener());
+
+                client.Start();
+
+                string command = Console.ReadLine();
+                while (command != "x")
+                {
+                    Message message;
+                    switch (command)
+                    {
+                        case "d":
+                            message = new Debug("debug message!!");
+                            break;
+                        case "s":
+                            message = new UnsequencedData(Encoding.ASCII.GetBytes("unsequenced"));
+                            break;
+                        case "l":
+                            message = new LoginRequest("user", "password");
+                            break;
+                        default:
+                            message = new Debug("default");
+                            break;
+                    }
+
+                    await client.Send(message.Bytes);
+
+                    command = Console.ReadLine();
                 }
-                // FIX
-                //await client.Send(message);
-                command = Console.ReadLine();
+
+                client.Shutdown();
             }
-            client.Shutdown();
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

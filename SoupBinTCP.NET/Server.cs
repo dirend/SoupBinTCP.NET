@@ -76,6 +76,9 @@ namespace SoupBinTCP.NET
                 bootstrap
                     .Group(bossGroup, workerGroup)
                     .Channel<TcpServerSocketChannel>()
+                    .Option(ChannelOption.TcpNodelay, true)
+                    .Option(ChannelOption.SoKeepalive, true)
+                    .Option(ChannelOption.SoReuseaddr, true)
                     .ChildHandler(new ActionChannelInitializer<ISocketChannel>(channel =>
                     {
                         var pipeline = channel.Pipeline;
@@ -87,14 +90,18 @@ namespace SoupBinTCP.NET
                         pipeline.AddLast(new SoupBinTcpMessageDecoder());
                         pipeline.AddLast(new SoupBinTcpMessageEncoder());
                         pipeline.AddLast("LoginRequestFilter", new LoginRequestFilterHandler());
-                        pipeline.AddLast(new IdleStateHandler(15, 1, 0));
+                        //pipeline.AddLast(new IdleStateHandler(15, 1, 0));
+                        pipeline.AddLast(new IdleStateHandler(59, 59, 0));
                         pipeline.AddLast(new ServerTimeoutHandler(Listener));
                         pipeline.AddLast("ServerHandshake", new ServerHandshakeHandler(Listener));
                     }));
 
                 _serverChannel = await bootstrap.BindAsync(5500);
                 await Listener.OnServerListening();
+
+                // Wait here
                 _cancellationToken.WaitHandle.WaitOne();
+
                 if (_serverChannel.Active)
                 {
                     await _channelGroup.WriteAndFlushAsync(new LogoutRequest());

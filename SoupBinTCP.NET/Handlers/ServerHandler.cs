@@ -30,6 +30,8 @@ namespace SoupBinTCP.NET.Handlers
             }
         }
 
+        //public override void ChannelReadComplete(IChannelHandlerContext context) => context.Flush();
+
         public override void ChannelInactive(IChannelHandlerContext context)
         {
             _listener.OnSessionEnd(context.Channel.Id.AsLongText());

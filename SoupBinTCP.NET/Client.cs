@@ -71,6 +71,8 @@ namespace SoupBinTCP.NET
                     .Group(group)
                     .Channel<TcpSocketChannel>()
                     .Option(ChannelOption.TcpNodelay, true)
+                    .Option(ChannelOption.SoKeepalive, true)
+                    .Option(ChannelOption.SoReuseaddr, true)
                     .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
                     {
                         var pipeline = channel.Pipeline;
@@ -79,13 +81,15 @@ namespace SoupBinTCP.NET
                         pipeline.AddLast(new LengthFieldPrepender(ByteOrder.BigEndian, 2, 0, false));
                         pipeline.AddLast(new SoupBinTcpMessageDecoder());
                         pipeline.AddLast(new SoupBinTcpMessageEncoder());
-                        pipeline.AddLast(new IdleStateHandler(15, 1, 0));
+                        //pipeline.AddLast(new IdleStateHandler(15, 1, 0));
+                        pipeline.AddLast(new IdleStateHandler(59, 59, 0));
                         pipeline.AddLast(new ClientTimeoutHandler());
                         pipeline.AddLast(new ClientHandler(_loginDetails, _listener));
                     }));
                 
                 _clientChannel = await bootstrap.ConnectAsync(new IPEndPoint(_ipAddress, _port));
 
+                // Wait here
                 _cancellationToken.WaitHandle.WaitOne();
 
                 if (_clientChannel.Active)

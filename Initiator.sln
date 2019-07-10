@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoupBinTCP.NET", "SoupBinTCP.NET\SoupBinTCP.NET.csproj", "{1AB886EE-8C45-41FC-8118-48ADC1E01C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Initiator", "Examples\Client\Initiator.csproj", "{B3654CE4-B484-4469-BA38-0EC863002840}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,15 +17,15 @@ Global
 		{1AB886EE-8C45-41FC-8118-48ADC1E01C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AB886EE-8C45-41FC-8118-48ADC1E01C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AB886EE-8C45-41FC-8118-48ADC1E01C8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {64472FA1-B267-483F-9DAA-CFCD47034FF1}
+		SolutionGuid = {C7975B91-2C5A-4ADD-A7FE-A55E0E36B6B9}
 	EndGlobalSection
 EndGlobal

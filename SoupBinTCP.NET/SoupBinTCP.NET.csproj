@@ -205,6 +205,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Codecs\OUCHMessageDecoder.cs" />
+    <Compile Include="Codecs\OUCHMessageEncoder.cs" />
     <Compile Include="Codecs\SoupBinTcpMessageDecoder.cs" />
     <Compile Include="Codecs\SoupBinTcpMessageEncoder.cs" />
     <Compile Include="Handlers\ClientHandler.cs" />
@@ -226,6 +228,7 @@
     <Compile Include="Messages\LoginRequest.cs" />
     <Compile Include="Messages\LogoutRequest.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\OUCH\OUCHEnterOrder.cs" />
     <Compile Include="Messages\SequencedData.cs" />
     <Compile Include="Messages\ServerHeartbeat.cs" />
     <Compile Include="Messages\UnsequencedData.cs" />
@@ -236,5 +239,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

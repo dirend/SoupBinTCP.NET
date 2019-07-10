@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DotNetty.Buffers;
-using DotNetty.Codecs;
-using DotNetty.Transport.Channels;
+﻿using DotNetty.Transport.Channels;
 using SoupBinTCP.NET.Messages;
 
 namespace SoupBinTCP.NET.Handlers
@@ -37,6 +32,8 @@ namespace SoupBinTCP.NET.Handlers
                     break;
             }
         }
+
+        //public override void ChannelReadComplete(IChannelHandlerContext context) => context.Flush();
 
         public override void ChannelActive(IChannelHandlerContext context)
         {
