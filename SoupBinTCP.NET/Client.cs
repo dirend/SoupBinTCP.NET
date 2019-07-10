@@ -26,7 +26,7 @@ namespace SoupBinTCP.NET
 
         public Client(IPAddress ipAddress, int port, LoginDetails loginDetails, IClientListener listener)
         {
-            if(port < 0) throw new ArgumentException("Invalid port number", nameof(port));
+            if (port < 0) throw new ArgumentException("Invalid port number", nameof(port));
             _ipAddress = ipAddress;
             _port = port;
             _cancellationTokenSource = new CancellationTokenSource();
@@ -34,12 +34,12 @@ namespace SoupBinTCP.NET
             _listener = listener;
             _loginDetails = loginDetails;
         }
-        
+
         public void Start()
         {
             Task.Run(RunClientAsync);
         }
-        
+
         public async Task Send(byte[] message)
         {
             if (message.Length > ushort.MaxValue - 1)
@@ -59,7 +59,7 @@ namespace SoupBinTCP.NET
                 await _clientChannel.WriteAndFlushAsync(new Debug(message));
             }
         }
-        
+
         private async Task RunClientAsync()
         {
             var group = new MultithreadEventLoopGroup();
@@ -76,17 +76,39 @@ namespace SoupBinTCP.NET
                     .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
                     {
                         var pipeline = channel.Pipeline;
-                        pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.BigEndian, ushort.MaxValue, 0, 2,
-                            0, 2, true));
-                        pipeline.AddLast(new LengthFieldPrepender(ByteOrder.BigEndian, 2, 0, false));
+
+                        pipeline.AddLast(
+                            new LengthFieldBasedFrameDecoder(
+                                byteOrder: ByteOrder.BigEndian,
+                                maxFrameLength: ushort.MaxValue,
+                                lengthFieldOffset: 0,
+                                lengthFieldLength: 2,
+                                lengthAdjustment: 0,
+                                initialBytesToStrip: 2,
+                                failFast: true));
+
+                        pipeline.AddLast(
+                            new LengthFieldPrepender(
+                                byteOrder: ByteOrder.BigEndian, 
+                                lengthFieldLength: 2, 
+                                lengthAdjustment: 0, 
+                                lengthFieldIncludesLengthFieldLength: false));
+
                         pipeline.AddLast(new SoupBinTcpMessageDecoder());
+
                         pipeline.AddLast(new SoupBinTcpMessageEncoder());
-                        //pipeline.AddLast(new IdleStateHandler(15, 1, 0));
-                        pipeline.AddLast(new IdleStateHandler(59, 59, 0));
+
+                        pipeline.AddLast(
+                            new IdleStateHandler(
+                                readerIdleTimeSeconds: 15,
+                                writerIdleTimeSeconds: 1,
+                                allIdleTimeSeconds: 0));
+
                         pipeline.AddLast(new ClientTimeoutHandler());
+
                         pipeline.AddLast(new ClientHandler(_loginDetails, _listener));
                     }));
-                
+
                 _clientChannel = await bootstrap.ConnectAsync(new IPEndPoint(_ipAddress, _port));
 
                 // Wait here

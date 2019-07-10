@@ -3,10 +3,10 @@ using SoupBinTCP.NET.Messages;
 
 namespace SoupBinTCP.NET.Handlers
 {
-    internal class ServerHandshakeHandler: SimpleChannelInboundHandler<LoginRequest>
+    internal class ServerHandshakeHandler : SimpleChannelInboundHandler<LoginRequest>
     {
         private readonly IServerListener _listener;
-        
+
         public ServerHandshakeHandler(IServerListener listener)
         {
             _listener = listener;
@@ -15,7 +15,8 @@ namespace SoupBinTCP.NET.Handlers
         protected override void ChannelRead0(IChannelHandlerContext ctx, LoginRequest msg)
         {
             var result = _listener.OnLoginRequest(msg.Username, msg.Password, msg.RequestedSession,
-                msg.RequestedSequenceNumber, ctx.Channel.Id.AsLongText());
+                                                  msg.RequestedSequenceNumber, ctx.Channel.Id.AsLongText());
+
             if (result.Success)
             {
                 ctx.Channel.Pipeline.Remove(this);
@@ -28,21 +29,21 @@ namespace SoupBinTCP.NET.Handlers
                 char reason;
                 switch (result.RejectionReason)
                 {
-                        case RejectionReason.NotAuthorised:
-                            reason = 'A';
-                            break;
-                        case RejectionReason.SessionNotAvailable:
-                            reason = 'S';
-                            break;
-                        default:
-                            reason = 'A';
-                            break;
+                    case RejectionReason.NotAuthorised:
+                        reason = 'A';
+                        break;
+                    case RejectionReason.SessionNotAvailable:
+                        reason = 'S';
+                        break;
+                    default:
+                        reason = 'A';
+                        break;
                 }
                 ctx.WriteAsync(new LoginRejected(reason));
                 ctx.CloseAsync();
             }
         }
-        
+
         public override void ChannelActive(IChannelHandlerContext context)
         {
             _listener.OnSessionStart(context.Channel.Id.AsLongText());

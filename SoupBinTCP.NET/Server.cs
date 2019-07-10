@@ -84,15 +84,36 @@ namespace SoupBinTCP.NET
                         var pipeline = channel.Pipeline;
                         _channelGroup.Add(channel);
                         _channels.Add(channel.Id.AsLongText(), channel);
-                        pipeline.AddLast(new LengthFieldBasedFrameDecoder(ByteOrder.BigEndian, ushort.MaxValue, 0, 2, 0,
-                            2, true));
-                        pipeline.AddLast(new LengthFieldPrepender(ByteOrder.BigEndian, 2, 0, false));
+
+                        pipeline.AddLast(
+                            new LengthFieldBasedFrameDecoder(byteOrder: ByteOrder.BigEndian,
+                                maxFrameLength: ushort.MaxValue,
+                                lengthFieldOffset: 0,
+                                lengthFieldLength: 2,
+                                lengthAdjustment: 0,
+                                initialBytesToStrip: 2,
+                                failFast: true));
+
+                        pipeline.AddLast(
+                            new LengthFieldPrepender(byteOrder: ByteOrder.BigEndian,
+                                lengthFieldLength: 2,
+                                lengthAdjustment: 0,
+                                lengthFieldIncludesLengthFieldLength: false));
+
                         pipeline.AddLast(new SoupBinTcpMessageDecoder());
+
                         pipeline.AddLast(new SoupBinTcpMessageEncoder());
+
                         pipeline.AddLast("LoginRequestFilter", new LoginRequestFilterHandler());
-                        //pipeline.AddLast(new IdleStateHandler(15, 1, 0));
-                        pipeline.AddLast(new IdleStateHandler(59, 59, 0));
+
+                        pipeline.AddLast(
+                            new IdleStateHandler(
+                                readerIdleTimeSeconds: 15, 
+                                writerIdleTimeSeconds: 1, 
+                                allIdleTimeSeconds: 0));
+
                         pipeline.AddLast(new ServerTimeoutHandler(Listener));
+
                         pipeline.AddLast("ServerHandshake", new ServerHandshakeHandler(Listener));
                     }));
 
