@@ -19,14 +19,14 @@ namespace Client
             await Task.FromResult(false);
         }
 
-        public async Task OnMessage(OUCHMessage message)
-        {
-            // TODO Log
+        //public async Task OnMessage(OUCHMessage message)
+        //{
+        //    // TODO Log
 
-            // TODO switch
+        //    // TODO switch
 
-            await Task.FromResult(false);
-        }
+        //    await Task.FromResult(false);
+        //}
 
         public async Task OnLoginAccept(string session, ulong sequenceNumber)
         {

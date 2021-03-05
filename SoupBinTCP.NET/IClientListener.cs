@@ -7,7 +7,7 @@ namespace SoupBinTCP.NET
     {
         Task OnConnect();
         Task OnMessage(byte[] message);
-        Task OnMessage(OUCHMessage message);
+        //Task OnMessage(OUCHMessage message);
         Task OnDebug(string message);
         Task OnLoginAccept(string session, ulong sequenceNumber);
         Task OnLoginReject(char rejectReasonCode);

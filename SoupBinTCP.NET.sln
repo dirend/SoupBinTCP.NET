@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoupBinTCP.NET", "SoupBinTCP.NET\SoupBinTCP.NET.csproj", "{1AB886EE-8C45-41FC-8118-48ADC1E01C8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoupBinTCP.NET", "SoupBinTCP.NET\SoupBinTCP.NET.csproj", "{1AB886EE-8C45-41FC-8118-48ADC1E01C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Initiator", "examples\Client\Initiator.csproj", "{B3654CE4-B484-4469-BA38-0EC863002840}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acceptor", "examples\Server\Acceptor.csproj", "{83969916-4274-4631-BFAF-7974092CD1F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82F4A81D-6351-46B7-AEFD-4AA49E59FD65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3654CE4-B484-4469-BA38-0EC863002840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83969916-4274-4631-BFAF-7974092CD1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83969916-4274-4631-BFAF-7974092CD1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83969916-4274-4631-BFAF-7974092CD1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83969916-4274-4631-BFAF-7974092CD1F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
